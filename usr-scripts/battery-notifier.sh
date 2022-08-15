@@ -1,5 +1,8 @@
 #!/bin/env bash
 
+# Please fail on hidden bugs
+set -euo pipefail
+
 while :
 do
     N=`acpi | cut -d ' ' -f4 | cut -d ',' -f1 | cut -d '%' -f1`
