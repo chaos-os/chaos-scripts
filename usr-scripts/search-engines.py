@@ -9,7 +9,7 @@ if not N:
     exit()
 Y = getoutput("echo '' | dmenu -p {0} -i".format(N))
 Z = getoutput(
-    "cat ~/.config/script-dependencies/search-engines.txt | grep {0} | cut -d '-' -f2"
+    "cat /etc/neon-os/.config/script-dependencies/search-engines.txt | grep {0} | cut -d '-' -f2"
     .format(N))
 if not Y:
     exit()
