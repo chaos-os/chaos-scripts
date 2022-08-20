@@ -1,2 +1,8 @@
 dracula
 tomorrow-night
+nord
+gruvbox-dark
+monokai
+oceanic-next
+solarized-dark
+solarized-light
