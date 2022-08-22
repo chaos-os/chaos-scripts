@@ -1,0 +1,5 @@
+powerarrow
+semi-circle
+top-right-angled-triangle
+bottom-right-angled-triangle
+vertical

@@ -67,13 +67,32 @@ case $N in
 	echo "quit";;
 esac
 
+windowManager=`echo -e "Yes\nNo" | dmenu -p 'Do you want to change the style of qtile?' -l 2`
+case $windowManager in
+    "Yes")
+	N=`cat /etc/neon-os/.config/script-dependencies/theme-styles.txt | dmenu -p 'select your theme style:' -l 20`
+	case $N in
+	    "powerarrow")
+		sed -i "s|face_style = \"[a-zA-Z\-]*\"|face_style = \"arrow\"|"g .config/qtile/modules/widgets.py;;
+	    "semi-circle")
+		sed -i "s|face_style = \"[a-zA-Z\-]*\"|face_style = \"semi-circle\"|"g .config/qtile/modules/widgets.py;;
+	    "top-right-angled-triangle")
+		sed -i "s|face_style = \"[a-zA-Z\-]*\"|face_style = \"top-right-triangle\"|"g .config/qtile/modules/widgets.py;;
+	    "bottom-right-angled-triangle")
+		sed -i "s|face_style = \"[a-zA-Z\-]*\"|face_style = \"bottom-right-triangle\"|"g .config/qtile/modules/widgets.py;;
+	    "vertical")
+		sed -i "s|face_style = \"[a-zA-Z\-]*\"|face_style = \"vertical\"|"g .config/qtile/modules/widgets.py;;
+	    *)
+		echo "quit";;
+	esac;;
+    *)
+	echo "quit";;
+esac
+
 N=`echo -e "Yes\nNo" | dmenu -p 'Do you want to log out to make the changes have effect?' -l 2`
 case $N in
     "Yes")
 	loginctl kill-user $USER
-	;;
-    "No")
-	zenity --info --text="Please make sure to log out to make the changes take effect." --icon-name="bell" --ellipsize
 	;;
     *)
 	zenity --info --text="Please make sure to log out to make the changes take effect." --icon-name="bell" --ellipsize;;

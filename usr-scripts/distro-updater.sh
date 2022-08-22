@@ -30,10 +30,12 @@ configs_install()
 {
     cd /tmp
     configs_clone_install || cd dotfiles
-    sudo cp -rf .config/* ~/.config/ || doas -- cp -rf .config/* ~/.config/ 
-    sudo cp -rf .imwheelrc ~/ || doas -- cp -rf .imwheelrc ~/
-    sudo cp -rf .emacs.d/ ~/ || doas -- cp -rf .emacs.d/ ~/
-    sudo cp -rf .bashrc ~/ || doas -- cp -rf .bashrc ~/
+    sudo cp -rf .config/* ~/.config/ 1>/dev/null 2>/dev/null || doas -- cp -rf .config/* ~/.config/ 1>/dev/null 2>/dev/null 
+    sudo cp -rf .imwheelrc ~/ 1>/dev/null 2>/dev/null || doas -- cp -rf .imwheelrc ~/ 1>/dev/null 2>/dev/null 
+    sudo cp -rf .emacs.d/ ~/ 1>/dev/null 2>/dev/null || doas -- cp -rf .emacs.d/ ~/ 1>/dev/null 2>/dev/null 
+    sudo cp -rf .bashrc ~/ 1>/dev/null 2>/dev/null || doas -- cp -rf .bashrc ~/ 1>/dev/null 2>/dev/null
+    cd ..
+    sudo rm -rf dotfiles 1>/dev/null 2>/dev/null || doas -- rm -rf dotfiles 1>/dev/null 2>/dev/null
 }
 
 configs_install || echo "ERROR: Failed to update"
