@@ -12,6 +12,8 @@ case $N in
 	sed -i "s|(load-theme 'doom-[a-zA-Z\-]* t)|(load-theme 'doom-dracula t)|"g ~/.emacs.d/init.el
 	sed -i "s|local colorscheme = 'doom-[a-zA-Z\-\+]*'|local colorscheme = 'doom-dracula'|"g ~/.config/nvim/lua/settings/colorschemes/init.lua
 	sed -i "s|local colors = themes.pick_a_theme(\"[a-zA-Z\-]*\");|local colors = themes.pick_a_theme(\"dracula\");|"g ~/.config/awesome/themes/powerarrow/theme.lua
+    sed -i "s|include-file = settings/colorschemes/[a-zA-Z\-]*.ini|include-file = settings/colorschemes/dracula.ini|"g ~/.config/polybar/config.ini
+    sed -i "s|include settings/colorschemes/[a-zA-Z\-]*.conf|include settings/colorschemes/dracula.conf|"g ~/.config/i3/config
 	;;
     "tomorrow-night")
 	sed -i "s|colors = color_picker(\"[a-zA-Z\-]*\")|colors = color_picker(\"tomorrow-night\")|"g ~/.config/qtile/config.py
@@ -19,6 +21,8 @@ case $N in
 	sed -i "s|(load-theme 'doom-[a-zA-Z\-]* t)|(load-theme 'doom-tomorrow-night t)|"g ~/.emacs.d/init.el
 	sed -i "s|local colorscheme = 'doom-[a-zA-Z\-\+]*'|local colorscheme = 'doom-dark+'|"g ~/.config/nvim/lua/settings/colorschemes/init.lua
 	sed -i "s|local colors = themes.pick_a_theme(\"[a-zA-Z\-]*\");|local colors = themes.pick_a_theme(\"tomorrow-night\");|"g ~/.config/awesome/themes/powerarrow/theme.lua
+    sed -i "s|include-file = settings/colorschemes/[a-zA-Z\-]*.ini|include-file = settings/colorschemes/tomorrow-night.ini|"g ~/.config/polybar/config.ini
+    sed -i "s|include settings/colorschemes/[a-zA-Z\-]*.conf|include settings/colorschemes/tomorrow-night.conf|"g ~/.config/i3/config
 	;;
     "nord")
 	sed -i "s|colors = color_picker(\"[a-zA-Z\-]*\")|colors = color_picker(\"nord\")|"g ~/.config/qtile/config.py
@@ -26,6 +30,8 @@ case $N in
 	sed -i "s|(load-theme 'doom-[a-zA-Z\-]* t)|(load-theme 'doom-nord t)|"g ~/.emacs.d/init.el
 	sed -i "s|local colorscheme = 'doom-[a-zA-Z\-\+]*'|local colorscheme = 'doom-nord'|"g ~/.config/nvim/lua/settings/colorschemes/init.lua
 	sed -i "s|local colors = themes.pick_a_theme(\"[a-zA-Z\-]*\");|local colors = themes.pick_a_theme(\"nord\");|"g ~/.config/awesome/themes/powerarrow/theme.lua
+    sed -i "s|include-file = settings/colorschemes/[a-zA-Z\-]*.ini|include-file = settings/colorschemes/nord.ini|"g ~/.config/polybar/config.ini
+    sed -i "s|include settings/colorschemes/[a-zA-Z\-]*.conf|include settings/colorschemes/nord.conf|"g ~/.config/i3/config
 	;;
     "gruvbox-dark")
 	sed -i "s|colors = color_picker(\"[a-zA-Z\-]*\")|colors = color_picker(\"gruvbox-dark\")|"g ~/.config/qtile/config.py
@@ -33,6 +39,8 @@ case $N in
 	sed -i "s|(load-theme 'doom-[a-zA-Z\-]* t)|(load-theme 'doom-gruvbox t)|"g ~/.emacs.d/init.el
 	sed -i "s|local colorscheme = 'doom-[a-zA-Z\-\+]*'|local colorscheme = 'doom-gruvbox'|"g ~/.config/nvim/lua/settings/colorschemes/init.lua
 	sed -i "s|local colors = themes.pick_a_theme(\"[a-zA-Z\-]*\");|local colors = themes.pick_a_theme(\"gruvbox-dark\");|"g ~/.config/awesome/themes/powerarrow/theme.lua
+    sed -i "s|include-file = settings/colorschemes/[a-zA-Z\-]*.ini|include-file = settings/colorschemes/gruvbox-dark.ini|"g ~/.config/polybar/config.ini
+    sed -i "s|include settings/colorschemes/[a-zA-Z\-]*.conf|include settings/colorschemes/gruvbox-dark.conf|"g ~/.config/i3/config
 	;;
     "solarized-dark")
 	sed -i "s|colors = color_picker(\"[a-zA-Z\-]*\")|colors = color_picker(\"solarized-dark\")|"g ~/.config/qtile/config.py
@@ -40,6 +48,8 @@ case $N in
 	sed -i "s|(load-theme 'doom-[a-zA-Z\-]* t)|(load-theme 'doom-solarized-dark t)|"g ~/.emacs.d/init.el
 	sed -i "s|local colorscheme = 'doom-[a-zA-Z\-\+]*'|local colorscheme = 'doom-palenight'|"g ~/.config/nvim/lua/settings/colorschemes/init.lua
 	sed -i "s|local colors = themes.pick_a_theme(\"[a-zA-Z\-]*\");|local colors = themes.pick_a_theme(\"solarized-dark\");|"g ~/.config/awesome/themes/powerarrow/theme.lua
+    sed -i "s|include-file = settings/colorschemes/[a-zA-Z\-]*.ini|include-file = settings/colorschemes/solarized-dark.ini|"g ~/.config/polybar/config.ini
+    sed -i "s|include settings/colorschemes/[a-zA-Z\-]*.conf|include settings/colorschemes/solarized-dark.conf|"g ~/.config/i3/config
 	;;
     "solarized-light")
 	sed -i "s|colors = color_picker(\"[a-zA-Z\-]*\")|colors = color_picker(\"solarized-light\")|"g ~/.config/qtile/config.py
@@ -47,6 +57,8 @@ case $N in
 	sed -i "s|(load-theme 'doom-[a-zA-Z\-]* t)|(load-theme 'doom-solarized-light t)|"g ~/.emacs.d/init.el
 	sed -i "s|local colorscheme = 'doom-[a-zA-Z\-\+]*'|local colorscheme = 'doom-ayu-light'|"g ~/.config/nvim/lua/settings/colorschemes/init.lua
 	sed -i "s|local colors = themes.pick_a_theme(\"[a-zA-Z\-]*\");|local colors = themes.pick_a_theme(\"solarized-light\");|"g ~/.config/awesome/themes/powerarrow/theme.lua
+    sed -i "s|include-file = settings/colorschemes/[a-zA-Z\-]*.ini|include-file = settings/colorschemes/solarized-light.ini|"g ~/.config/polybar/config.ini
+    sed -i "s|include settings/colorschemes/[a-zA-Z\-]*.conf|include settings/colorschemes/solarized-light.conf|"g ~/.config/i3/config
 	;;
     "monokai")
 	sed -i "s|colors = color_picker(\"[a-zA-Z\-]*\")|colors = color_picker(\"monokai\")|"g ~/.config/qtile/config.py
@@ -54,6 +66,8 @@ case $N in
 	sed -i "s|(load-theme 'doom-[a-zA-Z\-]* t)|(load-theme 'doom-monokai-classic t)|"g ~/.emacs.d/init.el
 	sed -i "s|local colorscheme = 'doom-[a-zA-Z\-\+]*'|local colorscheme = 'doom-monokai-classic'|"g ~/.config/nvim/lua/settings/colorschemes/init.lua
 	sed -i "s|local colors = themes.pick_a_theme(\"[a-zA-Z\-]*\");|local colors = themes.pick_a_theme(\"monokai\");|"g ~/.config/awesome/themes/powerarrow/theme.lua
+    sed -i "s|include-file = settings/colorschemes/[a-zA-Z\-]*.ini|include-file = settings/colorschemes/monokai.ini|"g ~/.config/polybar/config.ini
+    sed -i "s|include settings/colorschemes/[a-zA-Z\-]*.conf|include settings/colorschemes/monokai.conf|"g ~/.config/i3/config
 	;;
     "oceanic-next")
 	sed -i "s|colors = color_picker(\"[a-zA-Z\-]*\")|colors = color_picker(\"oceanic-next\")|"g ~/.config/qtile/config.py
@@ -61,6 +75,8 @@ case $N in
 	sed -i "s|(load-theme 'doom-[a-zA-Z\-]* t)|(load-theme 'doom-oceanic-next t)|"g ~/.emacs.d/init.el
 	sed -i "s|local colorscheme = 'doom-[a-zA-Z\-\+]*'|local colorscheme = 'doom-oceanic-next'|"g ~/.config/nvim/lua/settings/colorschemes/init.lua
 	sed -i "s|local colors = themes.pick_a_theme(\"[a-zA-Z\-]*\");|local colors = themes.pick_a_theme(\"oceanic-next\");|"g ~/.config/awesome/themes/powerarrow/theme.lua
+    sed -i "s|include-file = settings/colorschemes/[a-zA-Z\-]*.ini|include-file = settings/colorschemes/oceanic-next.ini|"g ~/.config/polybar/config.ini
+    sed -i "s|include settings/colorschemes/[a-zA-Z\-]*.conf|include settings/colorschemes/oceanic-next.conf|"g ~/.config/i3/config
 	;;
 
     *)
