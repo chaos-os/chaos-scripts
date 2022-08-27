@@ -1,3 +1,6 @@
 YouTube-https://www.youtube.com/results?search_query=
+Reddit-https://libredd.it/r/
+Twitter-https://nitter.net/search?f=users&q=
+Odysee-https://odysee.com/$/search?q=
 ArchWiki-https://wiki.archlinux.org/title/
 SearXNG-https://search.disroot.org/?q=
