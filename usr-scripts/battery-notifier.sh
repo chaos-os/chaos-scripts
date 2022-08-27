@@ -3,6 +3,11 @@
 # Please fail on hidden bugs
 set -euo pipefail
 
+if [[ `acpi | grep 'Battery'` == '' ]]
+then
+    exit
+fi
+
 while :
 do
     N=`acpi | cut -d ' ' -f4 | cut -d ',' -f1 | cut -d '%' -f1`
