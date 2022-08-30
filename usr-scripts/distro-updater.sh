@@ -92,7 +92,6 @@ configs_install()
     doas -- chown -R $USER ~/.emacs.d
     doas -- cp -rf .bashrc ~/
     doas -- chown $USER ~/.bashrc
-    cd ..
 }
 
 configs_install || failure_management
