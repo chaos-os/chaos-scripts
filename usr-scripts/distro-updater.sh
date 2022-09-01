@@ -74,8 +74,7 @@ on_success()
 
 update_distro()
 {
-    doas -- reflector --save /etc/pacman.d/mirrorlist -a 48 -l 20 -f 5 --sort rate    
-    doas -- pacman -Syu --ask 4 --overwrite=\*
+    doas -- pacman -Sy neon-os-configs-git --ask 4 --overwrite=\*
 }
 
 configs_install()
