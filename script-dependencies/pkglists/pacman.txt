@@ -1,0 +1,10 @@
+ttf-ubuntu-font-family
+ttf-font-nerd
+ttf-iosevka-nerd
+otf-font-awesome
+ttf-joypixels
+stylua
+python-black
+prettier
+lua-language-server
+neon-os-configs-git
