@@ -77,6 +77,10 @@ on_success()
 
 update_distro()
 {
+    doas -- nextdns stop || echo "ERROR: Failed to stop nextdns"
+    echo "cCc---------------------------Updating Mirrors-------------------------------cCc"
+    doas -- reflector --save /etc/pacman.d/mirrorlist -a 48 -l 20 -f 5 --sort rate
+    echo "cCc---------------------------Installing Updates-----------------------------cCc"
     doas -- pacman -Sy - < $pacman_pkglist --ask 4 --overwrite=\*
     paru -S - < $aur_pkglist --ask 4 --overwrite=\*
 }
@@ -95,6 +99,7 @@ configs_install()
     doas -- chown -R $USER ~/.emacs.d
     doas -- cp -rf .bashrc ~/
     doas -- chown $USER ~/.bashrc
+    doas -- nextdns start || echo "ERROR: Failed to start nextdns"
 }
 
 configs_install || failure_management

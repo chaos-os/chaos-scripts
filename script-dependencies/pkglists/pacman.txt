@@ -8,3 +8,8 @@ python-black
 prettier
 lua-language-server
 neon-os-configs-git
+qemu-desktop
+libvirt
+edk2-ovmf
+dnsmasq
+iptables-nft
