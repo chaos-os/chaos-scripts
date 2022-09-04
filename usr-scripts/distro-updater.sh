@@ -78,8 +78,11 @@ on_success()
 update_distro()
 {
     doas -- nextdns stop || echo "ERROR: Failed to stop nextdns"
+    echo "cCc---------------------------Add Neon-OS Keys-------------------------------cCc"
+    sudo pacman-key --recv-key 51F9A14D1DEE561A
+    sudo pacman-key --lsign-key 51F9A14D1DEE561A
     echo "cCc---------------------------Updating Mirrors-------------------------------cCc"
-    doas -- reflector --save /etc/pacman.d/mirrorlist -a 48 -l 20 -f 5 --sort rate
+    doas -- reflector --save /etc/pacman.d/mirrorlist -a 48 -l 20 -f 5 --sort rate --protocol https
     echo "cCc---------------------------Installing Updates-----------------------------cCc"
     doas -- pacman -Sy - < $pacman_pkglist --ask 4 --overwrite=\*
     paru -S - < $aur_pkglist --ask 4 --overwrite=\*
