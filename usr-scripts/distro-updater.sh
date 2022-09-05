@@ -49,7 +49,7 @@ internet_connectivity_error_message()
 
 internet_connection_check()
 {
-    ping -q -w 1 -c 1 `ip r | grep default | cut -d ' ' -f 3` 2>/dev/null 1>/dev/null || internet_connectivity_error_message
+    ping -c 1 1.1.1.1 2>/dev/null 1>/dev/null || internet_connectivity_error_message
 }
 
 failure_management()
