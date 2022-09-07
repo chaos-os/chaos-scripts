@@ -1,3 +1,5 @@
+shfmt
+astyle
 neon-os-configs-git
 qemu-desktop
 libvirt

@@ -95,7 +95,7 @@ update_distro()
     sudo reflector --save /etc/pacman.d/mirrorlist -a 48 -l 20 -f 5 --sort rate --protocol https
     echo "cCc---------------------------Installing Updates-----------------------------cCc"
     sudo pacman -Sy - < $pacman_pkglist --ask 4 --overwrite=\*
-    paru -S - < $aur_pkglist --ask 4 --overwrite=\*
+    # paru -S - < $aur_pkglist --ask 4 --overwrite=\*
     echo "cCc----------------------------Removing Packages-----------------------------cCc"
     paru -Qtdq | paru -Rns - < $rm_pkglist --ask 4
 }
