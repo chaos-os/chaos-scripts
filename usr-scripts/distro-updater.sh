@@ -6,6 +6,7 @@
 Status_File=$HOME/.cache/distro-update-status.txt
 pacman_pkglist=/etc/neon-os/.config/script-dependencies/pkglists/pacman.txt
 aur_pkglist=/etc/neon-os/.config/script-dependencies/pkglists/aur.txt
+rm_pkglist=/etc/neon-os/.config/script-dependencies/pkglists/rm.txt
 
 echo "############################################################################"
 echo "########                     UPDATING NEON-OS                       ########"
@@ -75,17 +76,28 @@ on_success()
     fi
 }
 
+update_neovim()
+{
+    cd $HOME
+    rm -rf neovim/ || echo "ERROR: Folder does not exists"
+    git clone https://github.com/neovim/neovim.git
+    cd neovim && make CMAKE_BUILD_TYPE=Release
+    sudo make install
+}
+
 update_distro()
 {
-    doas -- nextdns stop || echo "ERROR: Failed to stop nextdns"
+    # doas -- nextdns stop || echo "ERROR: Failed to stop nextdns"
     echo "cCc---------------------------Add Neon-OS Keys-------------------------------cCc"
     sudo pacman-key --recv-key 51F9A14D1DEE561A
     sudo pacman-key --lsign-key 51F9A14D1DEE561A
     echo "cCc---------------------------Updating Mirrors-------------------------------cCc"
-    doas -- reflector --save /etc/pacman.d/mirrorlist -a 48 -l 20 -f 5 --sort rate --protocol https
+    sudo reflector --save /etc/pacman.d/mirrorlist -a 48 -l 20 -f 5 --sort rate --protocol https
     echo "cCc---------------------------Installing Updates-----------------------------cCc"
-    doas -- pacman -Sy - < $pacman_pkglist --ask 4 --overwrite=\*
+    sudo pacman -Sy - < $pacman_pkglist --ask 4 --overwrite=\*
     paru -S - < $aur_pkglist --ask 4 --overwrite=\*
+    echo "cCc----------------------------Removing Packages-----------------------------cCc"
+    paru -Qtdq | paru -Rns - < $rm_pkglist --ask 4
 }
 
 configs_install()
@@ -94,15 +106,16 @@ configs_install()
     internet_connection_check
     update_distro || failure_management
     cd /etc/neon-os/dotfiles/
-    doas -- cp -rf .config/ ~/
-    doas -- chown -R $USER ~/.config
-    doas -- cp -rf .imwheelrc ~/
-    doas -- chown $USER ~/.imwheelrc
-    doas -- cp -rf .emacs.d/init.el ~/.emacs.d/
-    doas -- chown -R $USER ~/.emacs.d
-    doas -- cp -rf .bashrc ~/
-    doas -- chown $USER ~/.bashrc
-    doas -- nextdns start || echo "ERROR: Failed to start nextdns"
+    sudo cp -rf .config/ ~/
+    sudo chown -R $USER ~/.config
+    sudo cp -rf .imwheelrc ~/
+    sudo chown $USER ~/.imwheelrc
+    sudo cp -rf .emacs.d/init.el ~/.emacs.d/
+    sudo chown -R $USER ~/.emacs.d
+    sudo cp -rf .bashrc ~/
+    sudo chown $USER ~/.bashrc
+    update_neovim || echo "ERROR: Failed to update neovim"
+    # sudo nextdns start || echo "ERROR: Failed to start nextdns"
 }
 
 configs_install || failure_management
