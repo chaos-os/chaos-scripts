@@ -7,3 +7,4 @@ edk2-ovmf
 dnsmasq
 iptables-nft
 python-setuptools
+xclip
