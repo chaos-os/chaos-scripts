@@ -60,25 +60,9 @@ failure_management()
     exit
 }
 
-on_success()
-{
-    cd $HOME
-    if [[ `cat $Status_File` == "Success" ]]
-    then
-        rm -rf .config.bak
-        rm -rf .emacs.d/init.el.bak
-        rm -rf .imwheelrc.bak
-        rm -rf .bashrc.bak
-        mv ~/.config ~/.config.bak
-        mv ~/.emacs.d/init.el ~/.emacs.d/init.el.bak
-        mv ~/.imwheelrc ~/.imwheelrc.bak
-        mv ~/.bashrc ~/.bashrc.bak
-    fi
-}
-
 update_neovim()
 {
-    cd $HOME
+    cd ~
     rm -rf neovim/ || echo "ERROR: Folder does not exists"
     git clone https://github.com/neovim/neovim.git
     cd neovim && make CMAKE_BUILD_TYPE=Release
@@ -97,23 +81,13 @@ update_distro()
     sudo pacman -Sy - < $pacman_pkglist --ask 4 --overwrite=\*
     # paru -S - < $aur_pkglist --ask 4 --overwrite=\*
     echo "cCc----------------------------Removing Packages-----------------------------cCc"
-    paru -Qtdq | paru -Rns - < $rm_pkglist --ask 4
+    # paru -Qtdq | paru -Rns - < $rm_pkglist --ask 4
 }
 
 configs_install()
 {
-    on_success || failure_management
     internet_connection_check
     update_distro || failure_management
-    cd /etc/neon-os/dotfiles/
-    sudo cp -rf .config/ ~/
-    sudo chown -R $USER ~/.config
-    sudo cp -rf .imwheelrc ~/
-    sudo chown $USER ~/.imwheelrc
-    sudo cp -rf .emacs.d/init.el ~/.emacs.d/
-    sudo chown -R $USER ~/.emacs.d
-    sudo cp -rf .bashrc ~/
-    sudo chown $USER ~/.bashrc
     update_neovim || echo "ERROR: Failed to update neovim"
     # sudo nextdns start || echo "ERROR: Failed to start nextdns"
 }
