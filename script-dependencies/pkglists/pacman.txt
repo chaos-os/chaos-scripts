@@ -8,3 +8,4 @@ dnsmasq
 iptables-nft
 python-setuptools
 xclip
+go
