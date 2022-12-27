@@ -9,17 +9,19 @@ if not N:
     exit()
 Y = getoutput("echo '' | dmenu -p {0} -i".format(N))
 Z = getoutput(
-    "cat /etc/neon-os/.config/script-dependencies/search-engines.txt | grep {0} | cut -d '-' -f2"
-    .format(N))
+    "cat /etc/neon-os/.config/script-dependencies/search-engines.txt | grep {0} | cut -d '-' -f2".format(
+        N
+    )
+)
 if not Y:
     exit()
 else:
     if N == "ArchWiki":
-        for i in Y.split():
-            Z += i + '_'
-        Popen(["xdg-open", Z])
+        Y.replace(" ", "_")
+        Popen(["xdg-open", Z + Y])
+    elif N == "SvgImages":
+        Y.replace(" ", "-")
+        Popen(["xdg-open", Z + Y + "/"])
     else:
-        X = ''
-        for i in Y.split():
-            Z += i + '+'
-        Popen(["xdg-open", Z])
+        Y.replace(" ", "+")
+        Popen(["xdg-open", Z + Y])

@@ -14,15 +14,8 @@ local function os_capture(cmd)
 	return s
 end
 
-local function sleep(n)
-	os.execute("sleep " .. tonumber(n))
-end
-
-while true do
-	if tonumber(os_capture("checkupdates | wc -l")) >= config.threshold then
-		os.execute("dunstify 'New updates available!!' -u 'normal'")
-	else
-		os.exit(0)
-	end
-	sleep(config.notify_timer)
+if tonumber(os_capture("checkupdates | wc -l")) >= config.threshold then
+	os.execute("dunstify 'New updates available!!' -u 'normal'")
+else
+	os.exit(0)
 end
