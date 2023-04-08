@@ -19,7 +19,7 @@ for _, val in ipairs(config.bookmarks) do
     if not website_links then
         website_links = val
     else
-        website_links = website_links .. "\n" .. val
+        website_links = string.format("%s\n%s", website_links, val)
     end
 end
 
@@ -28,5 +28,5 @@ local website_link = os_capture(string.format("echo -e '%s' | dmenu -p 'web' -l 
 if website_links == "" then
     os.exit(0)
 else
-    os.execute(string.format("xdg-open %s", website_link))
+    os.execute(string.format("xdg-open %s &", website_link))
 end

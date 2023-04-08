@@ -6,7 +6,7 @@
 
 # -------------------------Command Line Arguments------------------------
 from argparse import ArgumentParser
-from typing import Tuple
+from typing import Dict, Tuple
 from pycurl import (
     ACCEPT_ENCODING,
     CAINFO,
@@ -25,6 +25,7 @@ from pycurl import (
 from io import BytesIO
 from certifi import where
 from bs4 import BeautifulSoup
+from json import dumps, loads
 
 # -------------------------Constants------------------------
 CHARSET: str = "utf-8"
@@ -54,12 +55,15 @@ WEATHER_URL_FORMAT: str = "?format=+%c<-%C+%t"
 QR_CODE_GEN_WEBSITE_URL: str = "qrenco.de/"
 NEWS_FETCHING_URL: str = "us.getnews.tech/"
 PORT_TESTING_URL: str = "portquiz.net:"
-IP_FETCHER_URL: str = "ifconfig.me/ip"
+IP_FETCHER_URLS: Tuple = ("ifconfig.co/json", "ifconfig.es/json")
 DICT_URL: str = "dict.org/d:"
 CHEATSHEET_URL: str = "https://cht.sh/"
 
 WHITESPACE_CHAR: str = " "
 PLUS_SIGN_CHAR: str = "+"
+
+JSON_INDENT: int = 4
+JSON_SORT_KEYS: bool = True
 
 
 # -------------------------Functions------------------------
@@ -140,7 +144,12 @@ def get_defination(keywords: str) -> None:
 def get_my_ip() -> None:
     """Fetches the ip of the current network"""
 
-    print(process_request(IP_FETCHER_URL))
+    data_from_first_url: Dict = loads(process_request(IP_FETCHER_URLS[0]))
+    data_from_second_url: Dict = loads(process_request(IP_FETCHER_URLS[1]))
+
+    combined_data: Dict = {**data_from_second_url, **data_from_first_url}
+
+    print(dumps(combined_data, indent=JSON_INDENT, sort_keys=JSON_SORT_KEYS))
 
 
 def get_result_from_port_test(port: int) -> None:
@@ -168,8 +177,48 @@ def get_news(keywords: str) -> None:
     )
 
 
+def get_dns_info() -> None:
+    """Fetches the dns information of the current network"""
+
+    print(process_request("https://edns.ip-api.com/json"))
+
+
+def get_shortened_url(url: str) -> None:
+    """Provides a shortened url based on the given parameter of the original url"""
+    print(process_request(f"tinyurl.com/api-create.php?url={url}"))
+
+
+def get_info_on_common_websites() -> None:
+    """Fetches the status of commonly accessed websites"""
+    print(process_request("https://status.plaintext.sh/t"))
+
+
+def get_corona_stats_worldwide() -> None:
+    """Fetches the corona stats of all the nations worldwide"""
+    print(process_request("https://corona-stats.online"))
+
+
+def get_corona_stats_of_current_country() -> None:
+    """Fetches the corona stats of the current country you are in"""
+    print(
+        process_request("snf-878293.vm.okeanos.grnet.gr", user_agent=NORMAL_USER_AGENT)
+    )
+
+
+def get_random_jokes() -> None:
+    """Provides random jokes"""
+    print(process_request("https://icanhazdadjoke.com", user_agent=NORMAL_USER_AGENT))
+
+
+def get_hacker_news_feed() -> None:
+    """Fetches the hacker news(HN) news feed"""
+    print(process_request("hkkr.in", user_agent=NORMAL_USER_AGENT))
+
+
 # -------------------------Command Line Arguments------------------------
-parser = ArgumentParser(description="A program which is a collection of all useful curl based internet programs for daily use")
+parser = ArgumentParser(
+    description="A program which is a collection of all useful curl based internet programs for daily use"
+)
 parser.add_argument(
     "-w",
     "--weather",
@@ -193,6 +242,9 @@ parser.add_argument(
     type=int,
 )
 parser.add_argument(
+    "--dns", help="give the dns information of the network", action="store_true"
+)
+parser.add_argument(
     "-d", "--define", help="provide the defination of the given word", type=str
 )
 parser.add_argument(
@@ -200,6 +252,31 @@ parser.add_argument(
     "--news",
     help="fetch all latest news headlines according to the provided parameters",
     type=str,
+)
+
+parser.add_argument(
+    "-s", "--shorten", help="provide the defination of the given word", type=str
+)
+parser.add_argument(
+    "--commons", help="give the information of all common websites", action="store_true"
+)
+parser.add_argument(
+    "--cww",
+    help="give the stats on corona of all countries world wide",
+    action="store_true",
+)
+parser.add_argument(
+    "--ccc",
+    help="give the stats on corona of current country",
+    action="store_true",
+)
+parser.add_argument(
+    "-j", "--jokes", help="generate some random jokes", action="store_true"
+)
+parser.add_argument(
+    "--hacker-news",
+    help="give me all the headlines of latest news feed from hacker news(HN)",
+    action="store_true",
 )
 args = parser.parse_args()
 
@@ -217,3 +294,17 @@ if args.port_test:
     get_result_from_port_test(args.port_test)
 if args.news:
     get_news(args.news.strip())
+if args.dns:
+    get_dns_info()
+if args.shorten:
+    get_shortened_url(args.shorten.strip())
+if args.commons:
+    get_info_on_common_websites()
+if args.cww:
+    get_corona_stats_worldwide()
+if args.ccc:
+    get_corona_stats_of_current_country()
+if args.jokes:
+    get_random_jokes()
+if args.hacker_news:
+    get_hacker_news_feed()
